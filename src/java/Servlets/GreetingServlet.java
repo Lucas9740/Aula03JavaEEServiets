@@ -7,7 +7,7 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.Calendar;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucas Silva
  */
-@WebServlet(name = "DateTimeServlet", urlPatterns = {"/date-time.html"})
-public class DateTimeServlet extends HttpServlet {
+@WebServlet(name = "GreetingServlet", urlPatterns = {"/greeting/*"})
+public class GreetingServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +30,34 @@ public class DateTimeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-     int contador=1;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
             out.println("<title>Servlet DateTimeServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>JavaEE</h1>");
-            out.println("<h2>Servlets </h2>");
-            out.println("<h3>Data/Hora do servidor </h3>");
-            out.println("<p>"+new Date()+"</p>");
-            out.println("<h3>Requisições realizadas </h3>");
-            out.println("<p>"+(contador++)+"</p>");
-            out.println("<h4><a href='index.html'>Voltar</a></h4>");
+            out.println("<h1> JAVA EE SERVLET </h1>");
+            out.println("<h2> SERVLETS </h2>");
+            out.println("<h3>Recurso requisitado</h3>");
+            out.println("<p>"+request.getRequestURI()+"</p>");
+            out.println("<h3>Saudação</h3>");
+            Calendar c = Calendar.getInstance();
+            int h = c.get(Calendar.HOUR_OF_DAY);
+            if(h<6){
+                out.println("<p>Sem Tempo Irmão</p>");
+            }else if(h<12){
+                out.println("<p>BONDINHA</p>");
+            }else if(h<18){
+                out.println("<p>BATARDE</p>");
+            }else{
+                out.println("<p>BANOITE</p>");
+            }
+            out.println("<h4><a href='../index.html'>Voltar</a></h4>");
             out.println("</body>");
             out.println("</html>");
         }

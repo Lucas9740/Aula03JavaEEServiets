@@ -7,7 +7,6 @@ package Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Lucas Silva
  */
-@WebServlet(name = "DateTimeServlet", urlPatterns = {"/date-time.html"})
-public class DateTimeServlet extends HttpServlet {
+@WebServlet(name = "SumServlet", urlPatterns = {"/sum.html"})
+public class SumServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,26 +29,29 @@ public class DateTimeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-     int contador=1;
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-             out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet DateTimeServlet</title>");            
+            out.println("<title>MathServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>JavaEE</h1>");
-            out.println("<h2>Servlets </h2>");
-            out.println("<h3>Data/Hora do servidor </h3>");
-            out.println("<p>"+new Date()+"</p>");
-            out.println("<h3>Requisições realizadas </h3>");
-            out.println("<p>"+(contador++)+"</p>");
             out.println("<h4><a href='index.html'>Voltar</a></h4>");
+            out.println("<h1>JavaEE</h1>");
+            out.println("<h2>Servlets</h2>");
+            out.println("<h3>Soma</h3>");
+            double n1, n2 = 0;
+            try{
+                n1 = Double.parseDouble(request.getParameter("n1"));
+                n2 = Double.parseDouble(request.getParameter("n2"));
+                out.println("<h4>"+n1+" + "+n2+" = "+(n1+n2)+"</h4>");
+            }catch(NumberFormatException ex){
+                out.println("<p style='color:red'>Erro ao ler parâmetros: "+ex.getMessage()+"<p>");
+            }
             out.println("</body>");
             out.println("</html>");
         }
